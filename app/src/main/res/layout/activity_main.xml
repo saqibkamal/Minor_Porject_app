@@ -24,13 +24,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="529dp"
         android:layout_below="@+id/uprect"
         android:layout_above="@+id/rectbelow">
 
         <ListView
-            android:layout_width="411dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:id="@+id/listView"></ListView>
