@@ -5,8 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 /**
- * Created by sonu1 on 10/1/2018.
+ *
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Informations.db";
@@ -29,16 +30,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("+colid+" INTEGER PRIMARY KEY AUTOINCREMENT, "+ colname + " VARCHAR, "
                 + coldesignation + " VARCHAR, " + coldepartment + " VARCHAR, "+ colqualification + " VARCHAR, " + coladdress + " VARCHAR, "+ colemail + " VARCHAR, " + colcontact + " VARCHAR )";
         db.execSQL(createTable);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
     public void addData() {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
         ContentValues cv1 = new ContentValues();
         cv1.put(colname,"Sonu Kumar Chaudhary");
         cv1.put(coldesignation,"Student");
@@ -68,6 +71,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv3.put(colemail,"jhasachin213@gmail.com");
         cv3.put(colcontact,"9896639877");
         db.insert(TABLE_NAME, null, cv3);
+
+        ContentValues cv4 = new ContentValues();
+        cv4.put(colname,"Dr.Mantosh Biswas");
+        cv4.put(coldesignation,"Assistant Professor");
+        cv4.put(coldepartment,"Computer engineer");
+        cv4.put(colqualification,"Ph.D (ISM Dhanbad)");
+        cv4.put(coladdress,"Room No-209 Computer Dept.");
+        cv4.put(colemail,"mantoshb@gmail.com");
+        cv4.put(colcontact,"01744-233489");
+        db.insert(TABLE_NAME, null, cv4);
+
+        ContentValues cv5 = new ContentValues();
+        cv5.put(colname,"Bharati Sinha");
+        cv5.put(coldesignation,"Assistant Professor");
+        cv5.put(coldepartment,"Computer engineering");
+        cv5.put(colqualification,"Ph.D (Pursuing)");
+        cv5.put(coladdress,"Room No-209 Computer Dept.");
+        cv5.put(colemail,"bharatisinha@nitkkr.ac.in");
+        cv5.put(colcontact,"N/A");
+        db.insert(TABLE_NAME, null, cv5);
+
+        db.setTransactionSuccessful();
+        db.endTransaction();
+
+        db.close();
 
     }
     public Cursor getListContents(String names){
