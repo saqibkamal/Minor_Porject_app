@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     File imagefile;
     Uri imageUri;
     String name;
+    String[] names,fullnames;
 
     DatabaseHelper myDB;
     ListView listView;
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(requestCode==0){
             switch (resultCode){
                 case Activity.RESULT_OK:
-                    imageView.setImageURI(imageUri);
+                    //imageView.setImageURI(imageUri);
 
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (resultCode) {
                 case Activity.RESULT_OK:
                     imageUri = data.getData();
-                    imageView.setImageURI(imageUri);
+                    //imageView.setImageURI(imageUri);
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                         sendPhoto(bitmap);
@@ -266,8 +267,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         result = result + line;
                     }
                     Log.i("msgr", result);
+                    names=result.split("\\s+");
                     name=result;
-                    name = name.replace(" " , "");
+
+                   // name = name.replace(" " , "");
 
                 } catch (Exception e) {
                     name = "error";
@@ -286,17 +289,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            catLoadingView.dismiss();
+
 
             if(name.equals("error")){
                 Toast.makeText(MainActivity.this, "No Internet Connection ", Toast.LENGTH_LONG).show();
             }
             else {
-                imageView.setImageResource(getResources().getIdentifier(name, "drawable", getPackageName()));
-                displayfunction(name);
-            }
+                if(names.length==1) {
+                    //imageView.setImageResource(getResources().getIdentifier(names[0], "drawable", getPackageName()));
+                    //displayfunction(names[0]);
 
+                    catLoadingView.dismiss();
+
+                    Intent i = new Intent(getBaseContext(), Personal_Detail.class);
+                    i.putExtra("name", names[0]);
+                    startActivity(i);
+
+                }
+                else{
+                    fullnames=new String[names.length];
+                    for(int i=0;i<names.length;i++){
+                        fullnames[i]=getFullnames(names[i]);
+                    }
+
+
+
+                    Intent in = new Intent(getBaseContext(), Persons_List.class);
+                    Bundle args = new Bundle();
+                    args.putSerializable("NAMELIST", names);
+                    args.putSerializable("FULLNAME",fullnames);
+                    in.putExtra("BUNDLE", args);
+
+                    catLoadingView.dismiss();
+
+                    startActivity(in);
+                }
+            }
         }
     }
 
+    public String getFullnames(String a) {
+
+        Cursor data = myDB.getListContents(a);
+        data.moveToNext();
+        return data.getString(1);
+
+    }
 }
