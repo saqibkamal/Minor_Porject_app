@@ -292,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             if(name.equals("error")){
+                catLoadingView.dismiss();
                 Toast.makeText(MainActivity.this, "No Internet Connection ", Toast.LENGTH_LONG).show();
             }
             else {

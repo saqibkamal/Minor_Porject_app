@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GoogleFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="20dp"
+            android:layout_toLeftOf="@id/imageView2"
+            android:textSize="24dp"
+            android:id="@+id/txtName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/txtName"
+            android:layout_toLeftOf="@id/imageView2"
+            android:textSize="16dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="6dp"
+            android:id="@+id/txtDesignation"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+            tools:src="@tools:sample/avatars"
+            />
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:id="@+id/webView"
+            android:background="#000000"
+            android:layout_below="@+id/imageView2"/>
+    </RelativeLayout>
+
+
+</FrameLayout>

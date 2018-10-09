@@ -2,8 +2,13 @@ package com.example.saqib.minor_project;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -14,9 +19,11 @@ import java.util.ArrayList;
 
 public class Personal_Detail extends AppCompatActivity {
 
-    DatabaseHelper myDB;
-    ListView listView;
-    ImageView imageView;
+    BottomNavigationView bottomNavigationView;
+
+    DetailsFragment detailsFragment;
+    GoogleFragment googleFragment;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,33 +31,63 @@ public class Personal_Detail extends AppCompatActivity {
         setContentView(R.layout.activity_personal__detail);
 
         Intent intent = getIntent();
-        String name = intent.getExtras().getString("name");
+        name = intent.getExtras().getString("name");
 
-        imageView=findViewById(R.id.imageView);
-        listView = findViewById(R.id.listView);
-        myDB = new DatabaseHelper(this);
-
-        imageView.setImageResource(getResources().getIdentifier(name, "drawable", getPackageName()));
-
-        displayfunction(name);
+        bottomNavigationView = findViewById(R.id.bottomView);
 
 
-    }
+        detailsFragment = new DetailsFragment();
+        googleFragment = new GoogleFragment();
 
-    private void displayfunction(String name){
-        ArrayList<String> theList = new ArrayList<>();
-        Cursor data = myDB.getListContents(name);
-        if (data.getCount() == 0) {
-            Toast.makeText(Personal_Detail.this, "NOT FOUND", Toast.LENGTH_LONG).show();
 
-        } else {
-            int i=1;
-            while (data.moveToNext() && i<8) {
-                theList.add(data.getString(i));
-                i++;
+        setFragment(detailsFragment);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.detail:
+                        setFragment(detailsFragment);
+                        return true;
+
+                    case R.id.google:
+                        setFragment(googleFragment);
+                        return true;
+
+                        default:
+                            return false;
+
+                }
+
             }
-            ListAdapter listAdapter = new ArrayAdapter<>(Personal_Detail.this, android.R.layout.simple_list_item_1, theList);
-            listView.setAdapter(listAdapter);
-        }
+        });
+
+
+
+
     }
+
+    private void setFragment(Fragment fragment){
+        FragmentTransaction fragmentTransaction =getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("name",name );
+        fragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.Frame,fragment);
+        fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(GoogleFragment.canGoBack()){
+            GoogleFragment.goBack();
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
+
 }
