@@ -5,8 +5,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -45,19 +47,20 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
+import info.hoang8f.widget.FButton;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button camera,gallery,home;
-    ImageView imageView;
+   Button camera,gallery;
 
     File imagefile;
     Uri imageUri;
     String name;
-    String[] names,fullnames;
+    String[] names,fullnames,designation;
 
     DatabaseHelper myDB;
     ListView listView;
@@ -78,18 +81,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
         }).check();
 
-        camera = (Button) findViewById(R.id.camera);
-        imageView = (ImageView)  findViewById(R.id.imageView);
-        gallery = (Button) findViewById(R.id.gallery);
-        home = (Button) findViewById(R.id.home);
 
-        camera.setOnClickListener(this);
-        gallery.setOnClickListener(this);
-        home.setOnClickListener(this);
+
+     camera =(Button) findViewById(R.id.camm);
+     gallery = (Button) findViewById(R.id.gall);
+
+     camera.setOnClickListener(this);
+     gallery.setOnClickListener(this);
 
         catLoadingView = new CatLoadingView();
 
         listView = (ListView) findViewById(R.id.listView);
+
+
 
         myDB = new DatabaseHelper(this);
         Cursor data = myDB.getListContents("sachin");
@@ -105,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.camera){
+        if(v.getId()==R.id.camm){
             Random rand = new Random();
 
             int  n = rand.nextInt(500000) + 1;
@@ -122,12 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         }
-        else if(v.getId()==R.id.gallery){
+        else if(v.getId()==R.id.gall){
             pickImage();
         }
-        else if(v.getId()==R.id.home){
-            return_home();
-        }
+
     }
 
     private void pickImage() {
@@ -180,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Cursor data = myDB.getListContents(name);
         if (data.getCount() == 0) {
             Toast.makeText(MainActivity.this, "NOT FOUND", Toast.LENGTH_LONG).show();
-            return_home();
+
         } else {
             int i=1;
             while (data.moveToNext() && i<8) {
@@ -207,12 +209,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 android.util.Base64.NO_WRAP);
     }
 
-    private void return_home(){
-        ArrayList<String> theList = new ArrayList<>();
-        ListAdapter listAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, theList);
-        listView.setAdapter(listAdapter);
-        imageView.setImageResource(0);
-    }
 
     private class UploadTask extends AsyncTask<Bitmap, Void, Void> {
 
@@ -270,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     names=result.split("\\s+");
                     name=result;
 
-                   // name = name.replace(" " , "");
+                   name = name.replace(" " , "");
 
                 } catch (Exception e) {
                     name = "error";
@@ -295,6 +291,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 catLoadingView.dismiss();
                 Toast.makeText(MainActivity.this, "No Internet Connection ", Toast.LENGTH_LONG).show();
             }
+            else if(name.equals("Noface")){
+                catLoadingView.dismiss();
+                Toast.makeText(MainActivity.this, "No Face in the Image", Toast.LENGTH_LONG).show();
+
+            }
+            else if(name.equals("Nomatch")){
+                catLoadingView.dismiss();
+                Toast.makeText(MainActivity.this, "Not Able To Identify the Person in The Image", Toast.LENGTH_LONG).show();
+
+            }
+
             else {
                 if(names.length==1) {
                     //imageView.setImageResource(getResources().getIdentifier(names[0], "drawable", getPackageName()));
@@ -309,8 +316,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else{
                     fullnames=new String[names.length];
+                    designation=new String[names.length];
                     for(int i=0;i<names.length;i++){
                         fullnames[i]=getFullnames(names[i]);
+                        designation[i]=getDesignation(names[i]);
                     }
 
 
@@ -319,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Bundle args = new Bundle();
                     args.putSerializable("NAMELIST", names);
                     args.putSerializable("FULLNAME",fullnames);
+                    args.putSerializable("DESIGNATION",designation);
                     in.putExtra("BUNDLE", args);
 
                     catLoadingView.dismiss();
@@ -334,6 +344,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Cursor data = myDB.getListContents(a);
         data.moveToNext();
         return data.getString(1);
+
+    }
+
+    public String getDesignation(String a) {
+
+        Cursor data = myDB.getListContents(a);
+        data.moveToNext();
+        return data.getString(2);
 
     }
 }

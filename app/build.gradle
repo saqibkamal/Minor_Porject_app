@@ -32,6 +32,7 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'info.hoang8f:fbutton:1.0.5'
 
 
 }

@@ -23,7 +23,7 @@ public class Personal_Detail extends AppCompatActivity {
 
     DetailsFragment detailsFragment;
     GoogleFragment googleFragment;
-    String name;
+    String name,Tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,12 @@ public class Personal_Detail extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.detail:
+                        Tag="detail";
                         setFragment(detailsFragment);
                         return true;
 
                     case R.id.google:
+                        Tag="google";
                         setFragment(googleFragment);
                         return true;
 
@@ -74,18 +76,25 @@ public class Personal_Detail extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("name",name );
         fragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.Frame,fragment);
+        fragmentTransaction.replace(R.id.Frame,fragment,Tag);
         fragmentTransaction.commit();
 
     }
 
     @Override
     public void onBackPressed() {
-        if(GoogleFragment.canGoBack()){
-            GoogleFragment.goBack();
-        }else{
-            super.onBackPressed();
+        Fragment myFragment =  getSupportFragmentManager().findFragmentByTag("google");
+        if (myFragment != null && myFragment.isVisible()) {
+
+            if(GoogleFragment.canGoBack()){
+                GoogleFragment.goBack();
+            }else{
+                super.onBackPressed();
+            }
         }
+        else
+            super.onBackPressed();
+
 
     }
 

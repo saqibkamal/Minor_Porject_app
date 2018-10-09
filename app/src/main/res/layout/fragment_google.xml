@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".GoogleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
 
 
     <RelativeLayout
@@ -19,7 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
             android:paddingLeft="20dp"
+            android:fontFamily="@font/pt"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+
             android:layout_toLeftOf="@id/imageView2"
             android:textSize="24dp"
             android:id="@+id/txtName"/>
@@ -29,16 +33,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/txtName"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:textStyle="bold"
             android:layout_toLeftOf="@id/imageView2"
             android:textSize="16dp"
             android:paddingLeft="20dp"
-            android:paddingTop="6dp"
+            android:paddingTop="4dp"
+            android:fontFamily="@font/pt"
             android:id="@+id/txtDesignation"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
             tools:src="@tools:sample/avatars"
             />
@@ -47,6 +55,7 @@
             android:layout_height="match_parent"
             android:paddingTop="10dp"
             android:id="@+id/webView"
+            android:fontFamily="@font/pt"
             android:background="#000000"
             android:layout_below="@+id/imageView2"/>
     </RelativeLayout>

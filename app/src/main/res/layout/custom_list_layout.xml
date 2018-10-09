@@ -25,7 +25,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
-            android:textColor="#c60a0a"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+
+            android:fontFamily="@font/pt"
             android:text=""/>
 
         <TextView
@@ -34,7 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textSize="20sp"
-            android:textColor="#101e99"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:fontFamily="@font/pt"
             android:text="Price"/>
 
     </LinearLayout>

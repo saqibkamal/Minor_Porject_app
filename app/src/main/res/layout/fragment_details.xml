@@ -9,9 +9,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/uprect"
-        android:background="@drawable/rectangleup">
+        android:background="@color/colorPrimary">
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="158dp"
             android:layout_height="154dp"
@@ -19,6 +23,34 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/imageView" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Call"
+            android:id="@+id/call"
+            android:fontFamily="@font/pt"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:drawableLeft="@drawable/phone"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/email"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Email"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="@font/pt"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/email"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -28,10 +60,16 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:paddingTop="200dp"
+            android:fontFamily="@font/pt"
+            android:foregroundGravity="bottom"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:background="@color/colorBackground"
             android:id="@+id/listView"></ListView>
+    </RelativeLayout>
+
     </RelativeLayout>
 
 

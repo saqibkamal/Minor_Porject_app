@@ -21,6 +21,7 @@
             android:layout_height="56dp"
             android:id="@+id/bottomView"
             android:background="#7B53CD"
+            android:fontFamily="@font/pt"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"

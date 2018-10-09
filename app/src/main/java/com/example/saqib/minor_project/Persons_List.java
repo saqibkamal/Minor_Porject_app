@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Persons_List extends AppCompatActivity {
 
-    String[] names,fullnames;
+    String[] names,fullnames,designation;
     ListView listView;
 
     @Override
@@ -27,6 +27,7 @@ public class Persons_List extends AppCompatActivity {
         Bundle args = intent.getBundleExtra("BUNDLE");
         names = (String[]) args.getSerializable("NAMELIST");
         fullnames= (String[]) args.getSerializable("FULLNAME");
+        designation = (String[]) args.getSerializable("DESIGNATION");
 
         listView=findViewById(R.id.list_view);
 
@@ -72,7 +73,7 @@ public class Persons_List extends AppCompatActivity {
             TextView textView2 = (TextView) convertView.findViewById(R.id.txtPrice);
 
             textView1.setText(fullnames[position]);
-            textView2.setText(names[position]);
+            textView2.setText(designation[position]);
             imageView.setImageResource(getResources().getIdentifier(names[position], "drawable", getPackageName()));
 
 
