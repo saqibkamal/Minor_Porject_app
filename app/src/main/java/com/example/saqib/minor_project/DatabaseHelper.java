@@ -493,6 +493,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv43.put(colcontact,"9354761220");
         db.insert(TABLE_NAME, null, cv43);
 
+        ContentValues cv44 = new ContentValues();
+        cv44.put(colname,"BB Gupta");
+        cv44.put(coldesignation,"Assistant Professor");
+        cv44.put(coldepartment,"Computer engineering");
+        cv44.put(colqualification,"N/A");
+        cv44.put(coladdress,"N/A");
+        cv44.put(colemail,"N/A");
+        cv44.put(colcontact,"N/A");
+        db.insert(TABLE_NAME, null, cv44);
+
         db.setTransactionSuccessful();
         db.endTransaction();
 

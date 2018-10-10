@@ -7,7 +7,8 @@
         android:id="@+id/detail"
         android:icon="@drawable/search"
         android:title="Detail"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        />
     <item
         android:id="@+id/google"
         android:icon="@drawable/google"

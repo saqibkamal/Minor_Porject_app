@@ -37,6 +37,7 @@ public class DetailsFragment extends Fragment {
     ImageView imageView;
     ArrayList<String> theList;
     String number,email_address;
+    String[] temp={"Name : ","Designation : ","Department : ","Qualification : ","Address : ","Email : ","Contact No : "};
 
 
     public DetailsFragment() {
@@ -108,7 +109,7 @@ public class DetailsFragment extends Fragment {
         } else {
             int i=1;
             while (data.moveToNext() && i<8) {
-                theList.add(data.getString(i));
+                theList.add(temp[i-1]+data.getString(i));
                 i++;
             }
             ListAdapter listAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, theList){
