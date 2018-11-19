@@ -46,9 +46,12 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 import info.hoang8f.widget.FButton;
 
@@ -219,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return null;
 
 
-            catLoadingView.setText("............");
+            catLoadingView.setText("Please Wait");
             catLoadingView.setCanceledOnTouchOutside(false);
             catLoadingView.show(getSupportFragmentManager(),"");
 
@@ -235,8 +238,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             DefaultHttpClient httpclient = new DefaultHttpClient();
             try {
+//                HttpPost httppost = new HttpPost(
+//                        "http://172.16.0.76:5000/predict"); // server
+
+
                 HttpPost httppost = new HttpPost(
-                        "http://10.42.0.1:5000/predict"); // server
+                        "Desktop"); // server
 
                 StringEntity se;
                 se = new StringEntity(jsonObject.toString());
@@ -317,6 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else{
                     fullnames=new String[names.length];
                     designation=new String[names.length];
+                    names = new HashSet<String>(Arrays.asList(names)).toArray(new String[0]);
                     for(int i=0;i<names.length;i++){
                         fullnames[i]=getFullnames(names[i]);
                         designation[i]=getDesignation(names[i]);

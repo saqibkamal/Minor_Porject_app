@@ -70,10 +70,14 @@ public class DetailsFragment extends Fragment {
                 String te= theList.get(6);
                 String tee[]=te.split(",",-1);
                 number = tee[0];
+                number= number.replaceAll("[^0-9]", "");
 
-                Intent phoneIntent = new Intent(Intent.ACTION_DIAL, Uri.fromParts(
-                        "tel", number, null));
-                startActivity(phoneIntent);
+
+
+                String uri = "tel:" + number ;
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(uri));
+                startActivity(intent);
 
 
             }
@@ -85,6 +89,7 @@ public class DetailsFragment extends Fragment {
                 String te= theList.get(5);
                 String tee[]=te.split(",",-1);
                 email_address = tee[0];
+                email_address =email_address.substring(7);
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", email_address, null));
