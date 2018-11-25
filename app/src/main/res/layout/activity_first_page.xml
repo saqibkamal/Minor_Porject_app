@@ -14,11 +14,13 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="147dp"
+            android:layout_height="137dp"
+
             android:textAlignment="center"
             android:textStyle="bold"
 
-            android:text="Minor Project \nOn \nAndroid App for Personal Information Extraction Through Facial Recognition \n Based on\nMachine Learning"
+
+            android:text="Minor Project \nOn \nAndroid App for Personal Information Extraction Through Facial Recognition"
             android:textSize="20sp" />
 
         <TextView

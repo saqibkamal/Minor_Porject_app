@@ -238,12 +238,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             DefaultHttpClient httpclient = new DefaultHttpClient();
             try {
-//                HttpPost httppost = new HttpPost(
-//                        "http://172.16.0.76:5000/predict"); // server
-
-
                 HttpPost httppost = new HttpPost(
-                        "Desktop"); // server
+                        "http://172.16.0.76:5000/predict"); // server
+
+
+//                HttpPost httppost = new HttpPost(
+//                        "Desktop"); // server
 
                 StringEntity se;
                 se = new StringEntity(jsonObject.toString());
